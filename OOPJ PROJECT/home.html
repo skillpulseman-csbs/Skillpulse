@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Skillpulse - A New Format for Coding Potential</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f9fafb;
+            /* gray-50 */
+            color: #1f2937;
+            /* gray-800 */
+        }
+
+        /* Hero section animated background */
+        .hero-bg {
+            position: relative;
+            background-color: #f9fafb;
+            overflow: hidden;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            top: -50%;
+            left: -50%;
+            z-index: 0;
+            background: radial-gradient(circle, rgba(167, 139, 250, 0.15) 0%, rgba(167, 139, 250, 0) 70%),
+                radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, rgba(59, 130, 246, 0) 60%);
+            animation: rotate-glow 25s linear infinite;
+        }
+
+        @keyframes rotate-glow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .hero-grid-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: linear-gradient(rgba(107, 114, 128, 0.1) 1px, transparent 1px), linear-gradient(to right, rgba(107, 114, 128, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom gradient text */
+        .gradient-text {
+            background: linear-gradient(to right, #8b5cf6, #3b82f6);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Sticky Header */
+        header {
+            transition: background-color 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        header .header-item,
+        header .header-logo path {
+            color: #4b5563;
+            /* gray-600 */
+            fill: #4b5563;
+        }
+
+        header.scrolled {
+            background-color: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        /* Header text color transitions */
+        #header .header-item {
+            transition: color 0.3s ease;
+        }
+
+        #header .header-logo path {
+            transition: fill 0.3s ease;
+        }
+
+        #header .header-item:hover {
+            color: #8b5cf6;
+            /* violet-500 */
+        }
+
+        #header.scrolled .header-item:hover,
+        #header.scrolled .header-logo path {
+            fill: #8b5cf6;
+        }
+
+        #header .brand-text {
+            color: #1f2937;
+        }
+
+        /* Card styles with glowing border */
+        .beautiful-card {
+            background-color: #ffffff;
+            border: 1px solid #e5e7eb;
+            /* gray-200 */
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .beautiful-card:before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(circle 400px at var(--x) var(--y), rgba(167, 139, 250, 0.1) 0%, transparent 80%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        .beautiful-card:hover:before {
+            opacity: 1;
+        }
+
+        .beautiful-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #a78bfa;
+            /* violet-400 */
+            box-shadow: 0 10px 30px rgba(167, 139, 250, 0.1);
+        }
+
+        /* Scroll reveal animation */
+        .reveal {
+            opacity: 0;
+            transform: translateY(60px);
+            transition: opacity 1s cubic-bezier(0.6, 0.01, 0.05, 0.95), transform 1s cubic-bezier(0.6, 0.01, 0.05, 0.95);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* CTA Button shine effect */
+        .shine-button {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .shine-button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+            transform: translateX(-100%) rotate(25deg);
+            transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+
+        .shine-button:hover::after {
+            transform: translateX(100%) rotate(25deg);
+        }
+    </style>
+</head>
+
+<body class="antialiased">
+
+    <!-- Header -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold tracking-tight">
+                <a href="#" class="flex items-center space-x-3">
+                    <img class="header-logo h-8 w-8" src="image.ico" 0 0 24 24">
+                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5-10-5-10 5z" /></img>
+                    <span class="header-item brand-text">Skillpulse</span>
+                </a>
+            </div>
+            <div id="desktop-menu" class="hidden lg:flex items-center space-x-8">
+                <a href="#courses" class="header-item">Courses</a>
+                <a href="#roles" class="header-item">For Universities</a>
+                <a href="#features" class="header-item">Features</a>
+            </div>
+            <div class="hidden lg:block">
+                <a href="login.html"
+                    class="shine-button bg-violet-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-violet-700 transition-colors shadow-lg shadow-violet-500/20">
+                    Login / Sign Up
+                </a>
+            </div>
+            <button id="mobile-menu-button" class="lg:hidden">
+                <i data-lucide="menu" class="header-item h-6 w-6"></i>
+            </button>
+        </nav>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="hidden lg:hidden absolute top-full left-0 w-full bg-white/90 backdrop-blur-sm border-t border-gray-200">
+            <div class="flex flex-col space-y-4 p-6">
+                <a href="#courses" class="text-gray-700 hover:text-violet-600 transition-colors">Courses</a>
+                <a href="#roles" class="text-gray-700 hover:text-violet-600 transition-colors">For Universities</a>
+                <a href="#features" class="text-gray-700 hover:text-violet-600 transition-colors">Features</a>
+                <a href="login.html"
+                    class="w-full text-center mt-4 bg-violet-600 text-white font-semibold px-5 py-2.5 rounded-lg hover:bg-violet-700 transition-colors">
+                    Login / Sign Up
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="hero-bg text-gray-900 pt-36 pb-24">
+            <div class="hero-grid-bg"></div>
+            <div class="container mx-auto px-6 text-center relative z-10">
+                <h1
+                    class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tighter leading-tight mb-6 reveal active">
+                    The Future of <span class="gradient-text">Code</span> is Collaborative.
+                </h1>
+                <p class="max-w-3xl mx-auto text-lg md:text-xl text-gray-600 mb-10 reveal active"
+                    style="transition-delay: 150ms;">
+                    Skillpulse is your launchpad. Learn cutting-edge coding skills with guidance from university mentors
+                    or share your expertise with a global community.
+                </p>
+                <div class="flex justify-center items-center space-x-4 reveal active" style="transition-delay: 300ms;">
+                    <a href="#courses"
+                        class="shine-button bg-violet-600 text-white font-semibold px-8 py-4 rounded-xl hover:bg-violet-700 transition-transform transform hover:scale-105 shadow-2xl shadow-violet-500/30">
+                        Explore Courses
+                    </a>
+                    <a href="#roles"
+                        class="bg-white text-gray-800 font-semibold px-8 py-4 rounded-xl hover:bg-gray-200 transition-transform transform hover:scale-105 shadow-2xl border border-gray-200">
+                        Learn More
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Who We Are For Section -->
+        <section id="roles" class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-gray-900">A Platform for Everyone</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Whether you're a student, a university mentor, or a
+                        passionate developer, Skillpulse has a place for you.</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Student Card -->
+                    <div class="beautiful-card p-8 rounded-2xl reveal">
+                        <div
+                            class="bg-violet-100 text-violet-600 rounded-lg h-12 w-12 flex items-center justify-center mb-6">
+                            <i data-lucide="graduation-cap" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">University Student</h3>
+                        <p class="text-gray-600">Access exclusive courses, get personalized mentorship from your
+                            university's top talent, and build a portfolio that stands out.</p>
+                    </div>
+                    <!-- Mentor Card -->
+                    <div class="beautiful-card p-8 rounded-2xl reveal" style="transition-delay: 150ms;">
+                        <div class="bg-sky-100 text-sky-600 rounded-lg h-12 w-12 flex items-center justify-center mb-6">
+                            <i data-lucide="user-check" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">University Mentor</h3>
+                        <p class="text-gray-600">Share your knowledge, guide the next generation of developers at your
+                            institution, and enhance your academic and professional profile.</p>
+                    </div>
+                    <!-- Public User Card -->
+                    <div class="beautiful-card p-8 rounded-2xl reveal" style="transition-delay: 300ms;">
+                        <div
+                            class="bg-emerald-100 text-emerald-600 rounded-lg h-12 w-12 flex items-center justify-center mb-6">
+                            <i data-lucide="globe" class="h-6 w-6"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-3">Public Learner</h3>
+                        <p class="text-gray-600">Join a global community of coders. Learn in-demand skills, contribute
+                            to projects, and grow your network, no matter where you are.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Featured Courses Section -->
+        <section id="courses" class="py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-gray-900">Start Your Journey</h2>
+                    <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Dive into the most popular and career-defining
+                        programming languages today.</p>
+                </div>
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <!-- Course Item -->
+                    <div class="beautiful-card p-6 rounded-2xl text-center reveal">
+                        <img src="https://placehold.co/100x100/ffffff/a78bfa?text=PY" alt="Python Logo"
+                            class="mx-auto mb-4 h-24 w-24 rounded-full border-2 border-gray-200">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">Python</h4>
+                        <p class="text-gray-600 text-sm">Versatile and powerful, perfect for web development, data
+                            science, and AI.</p>
+                    </div>
+                    <!-- Course Item -->
+                    <div class="beautiful-card p-6 rounded-2xl text-center reveal" style="transition-delay: 150ms;">
+                        <img src="https://placehold.co/100x100/ffffff/38bdf8?text=JS" alt="JavaScript Logo"
+                            class="mx-auto mb-4 h-24 w-24 rounded-full border-2 border-gray-200">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">JavaScript</h4>
+                        <p class="text-gray-600 text-sm">The language of the web. Build dynamic, interactive user
+                            experiences.</p>
+                    </div>
+                    <!-- Course Item -->
+                    <div class="beautiful-card p-6 rounded-2xl text-center reveal" style="transition-delay: 300ms;">
+                        <img src="https://placehold.co/100x100/ffffff/34d399?text=R" alt="React Logo"
+                            class="mx-auto mb-4 h-24 w-24 rounded-full border-2 border-gray-200">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">React & Next.js</h4>
+                        <p class="text-gray-600 text-sm">Create modern, fast, and scalable front-end applications with
+                            ease.</p>
+                    </div>
+                    <!-- Course Item -->
+                    <div class="beautiful-card p-6 rounded-2xl text-center reveal" style="transition-delay: 450ms;">
+                        <img src="https://placehold.co/100x100/ffffff/f472b6?text=DB" alt="Database Logo"
+                            class="mx-auto mb-4 h-24 w-24 rounded-full border-2 border-gray-200">
+                        <h4 class="text-xl font-bold text-gray-900 mb-2">SQL & Databases</h4>
+                        <p class="text-gray-600 text-sm">Master the art of data management, from basic queries to
+                            complex systems.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section (Bento Grid) -->
+        <section id="features" class="py-24 bg-white">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16 reveal">
+                    <h2 class="text-4xl font-bold text-gray-900">Why Skillpulse is Different</h2>
+                </div>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="beautiful-card rounded-2xl lg:col-span-2 p-8 reveal">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-sky-100 text-sky-600 rounded-lg p-3"><i data-lucide="puzzle"
+                                    class="h-6 w-6"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-xl text-gray-900">Interactive Learning Environment</h4>
+                                <p class="text-gray-600 mt-2">Don't just watch videos. Code along in our integrated
+                                    development environment and get instant feedback.</p>
+                            </div>
+                        </div>
+                        <div
+                            class="mt-6 bg-slate-900 rounded-lg p-4 font-mono text-sm text-slate-300 border border-slate-700">
+                            <pre><code><span class="text-pink-400">function</span> <span class="text-cyan-300">startSession</span>(<span class="text-orange-300">user</span>) {
+  <span class="text-slate-500">// Welcome to your interactive space!</span>
+  <span class="text-purple-400">const</span> editor = <span class="text-cyan-300">initEditor</span>();
+  <span class="text-purple-400">const</span> terminal = <span class="text-cyan-300">initTerminal</span>();
+
+  <span class="text-purple-400">return</span> { editor, terminal };
+}</code></pre>
+                        </div>
+                    </div>
+                    <div class="beautiful-card rounded-2xl p-8 reveal" style="transition-delay: 150ms;">
+                        <div class="bg-violet-100 text-violet-600 rounded-lg p-3 w-min"><i data-lucide="link"
+                                class="h-6 w-6"></i></div>
+                        <h4 class="font-semibold text-xl text-gray-900 mt-4">University Connect</h4>
+                        <p class="text-gray-600 mt-2">Bridge the gap between academic learning and real-world
+                            application.</p>
+                    </div>
+                    <div class="beautiful-card rounded-2xl lg:col-span-3 p-8 reveal" style="transition-delay: 300ms;">
+                        <div class="flex items-start space-x-4">
+                            <div class="bg-emerald-100 text-emerald-600 rounded-lg p-3"><i data-lucide="users"
+                                    class="h-6 w-6"></i></div>
+                            <div>
+                                <h4 class="font-semibold text-xl text-gray-900">Community Driven</h4>
+                                <p class="text-gray-600 mt-2">Ask questions, share projects, and collaborate with a
+                                    diverse community of learners and experts from around the globe.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="py-24 relative overflow-hidden">
+            <div class="hero-bg" style="opacity: 0.5;"></div>
+            <div class="container mx-auto px-6 text-center relative z-10 reveal">
+                <div class="bg-white/50 border border-gray-200 p-12 rounded-3xl backdrop-blur-sm">
+                    <h2 class="text-4xl font-bold mb-4 text-gray-900">Ready to Elevate Your Skills?</h2>
+                    <p class="max-w-2xl mx-auto text-gray-600 mb-8">Create an account in minutes and start your journey
+                        towards mastering code. Your future is waiting.</p>
+                    <a href="login.html"
+                        class="shine-button bg-violet-600 text-white font-bold px-8 py-4 rounded-xl hover:bg-violet-700 transition-transform transform hover:scale-105 shadow-2xl shadow-violet-500/30 inline-block">
+                        Get Started for Free
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 text-gray-600">
+        <div class="container mx-auto px-6 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h4 class="text-gray-900 text-lg font-semibold mb-4">Skillpulse</h4>
+                    <p class="text-sm">The collaborative platform for the next generation of coders and creators.</p>
+                </div>
+                <div>
+                    <h5 class="text-gray-900 font-semibold mb-4">Navigate</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#courses" class="hover:text-violet-600">Courses</a></li>
+                        <li><a href="#roles" class="hover:text-violet-600">For Universities</a></li>
+                        <li><a href="#features" class="hover:text-violet-600">Features</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-gray-900 font-semibold mb-4">Legal</h5>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="hover:text-violet-600">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-violet-600">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="text-gray-900 font-semibold mb-4">Connect</h5>
+                    <div class="flex space-x-4">
+                        <a href="#"><i data-lucide="twitter" class="h-5 w-5 hover:text-violet-600"></i></a>
+                        <a href="#"><i data-lucide="linkedin" class="h-5 w-5 hover:text-violet-600"></i></a>
+                        <a href="#"><i data-lucide="github" class="h-5 w-5 hover:text-violet-600"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-12 border-t border-gray-200 pt-6 text-center text-sm">
+                <p>&copy; 2025 Skillpulse Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        // Card hover effect
+        document.querySelectorAll('.beautiful-card').forEach(card => {
+            card.addEventListener('mousemove', e => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--x', `${x}px`);
+                card.style.setProperty('--y', `${y}px`);
+            });
+        });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        mobileMenuLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Sticky header logic
+        const header = document.getElementById('header');
+        window.onscroll = function () {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        };
+
+        // Scroll reveal logic
+        function reveal() {
+            const reveals = document.querySelectorAll(".reveal");
+            const windowHeight = window.innerHeight;
+            const elementVisible = 80;
+            reveals.forEach(el => {
+                const elementTop = el.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    el.classList.add("active");
+                }
+            });
+        }
+        window.addEventListener("scroll", reveal);
+        // Initial check
+        reveal();
+    </script>
+</body>
+
+</html>
